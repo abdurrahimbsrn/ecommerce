@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/eticaret_db?currentSchema=urun_schema
+    username: eticaret
+    password: eticaret
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect:
+    application:
+      name: urun-service
+server:
+  port: 8081
+

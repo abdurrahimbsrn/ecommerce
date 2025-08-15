@@ -1,4 +1,4 @@
-package com.ecommerce.urun_service.Dto;
+package com.ecommerce.urun_service.dto;
 
 import lombok.Data;
 

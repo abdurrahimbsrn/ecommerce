@@ -31,12 +31,8 @@ public class UrunController  {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UrunDto> getUrunById(@PathVariable Long id){ // PathVariable yol ile gelen değişkenleri metotla eşleştirir.
-                                                                    // ResponseEntity Http yanıtlarını kontrol etmemizi sağlayan sınıf. Sadece veriyi değil cevabın kodunuda döner
+    public ResponseEntity<UrunDto> getUrunById(@PathVariable Long id){  // PathVariable yol ile gelen değişkenleri metotla eşleştirir.
+                                                                        // ResponseEntity Http yanıtlarını kontrol etmemizi sağlayan sınıf. Sadece veriyi değil cevabın kodunuda döner
         return urunService.getUrunById(id);
-    }
-    @GetMapping("/{id}/stok")
-    public ResponseEntity<Stok> getStokByUrunId(@PathVariable Long id){
-        return
     }
 }
