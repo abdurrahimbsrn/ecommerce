@@ -3,8 +3,10 @@ package com.ecommerce.urun_service.entity;
 import lombok.*;
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
-@Table(name="urunler")
+@Table(name="urunler", schema="urun_schema")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,6 +19,7 @@ public class Urun {
     private  String ad;
     private String aciklama;
     private double fiyat;
+    //private Date eklemeTarihi;
 
     @ManyToOne
     @JoinColumn(name = "kategoriId")

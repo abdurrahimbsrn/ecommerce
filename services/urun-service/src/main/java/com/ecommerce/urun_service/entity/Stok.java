@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "stok_bilgileri")
+@Table(name = "stok_bilgileri",schema="urun_schema")
 @Data
 public class Stok {
     @Id

@@ -1,15 +1,13 @@
 package com.ecommerce.urun_service.controller;
 
 import com.ecommerce.urun_service.dto.UrunDto;
+import com.ecommerce.urun_service.dto.UrunEkleDto;
 import com.ecommerce.urun_service.entity.Stok;
 
 
 import com.ecommerce.urun_service.service.UrunService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.*;
 
@@ -17,13 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/urun")
+@NoArgsConstructor
+@AllArgsConstructor
 public class UrunController  {
 
-    private final UrunService urunService;
-
-    public UrunController(UrunService urunService) {
-        this.urunService=urunService;
-    }
+    private UrunService urunService;
 
     @GetMapping("/")
     public List<UrunDto> getAllUrun(){
@@ -35,4 +31,27 @@ public class UrunController  {
                                                                         // ResponseEntity Http yanıtlarını kontrol etmemizi sağlayan sınıf. Sadece veriyi değil cevabın kodunuda döner
         return urunService.getUrunById(id);
     }
+    @PutMapping("/{id}/stok")
+    public ResponseEntity<UrunDto> updateStok(@PathVariable Long id, @RequestBody Integer stok){
+        return urunService.setUrunStok(id,stok);
+    }
+    @GetMapping("/kategori/{kategoriId}")
+    public List<UrunDto> getUrunByKategoriId(@PathVariable Long kategorId){
+        return urunService.getUrunByKategori(kategorId);
+    }
+
+
+    @PostMapping("/")
+    public ResponseEntity<UrunDto> addUrun(@RequestBody UrunEkleDto urunEkleDto){
+        return urunService.addUrun(urunEkleDto);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<UrunDto> updateStok(@PathVariable Long id, @RequestBody UrunEkleDto urunEkleDto){
+        return urunService.updateUrun(id,urunEkleDto);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUrun(@PathVariable Long id){
+        return urunService.deleteUrun(id);
+    }
+
 }

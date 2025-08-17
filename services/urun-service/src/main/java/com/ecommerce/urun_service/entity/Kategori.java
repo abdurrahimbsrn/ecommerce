@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor // boş parametre almayan ctor olusturur
 @AllArgsConstructor // tüm alanları parametre alarak bşr ctor oluşturur
-@Table(name="kategoriler")
+@Table(name="kategoriler",schema="urun_schema")
 @Builder
 public class Kategori {
     @Id

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/eticaret_db?currentSchema=urun_schema
+    url: jdbc:postgresql://localhost:5432/eticaret_db?currentSchema=siparis_schema
     username: eticaret
     password: eticaret
   jpa:
@@ -10,7 +10,7 @@ spring:
       hibernate:
         dialect:
     application:
-      name: urun-service
+      name: siparis_service
 server:
-  port: 8083
+  port: 8081
 

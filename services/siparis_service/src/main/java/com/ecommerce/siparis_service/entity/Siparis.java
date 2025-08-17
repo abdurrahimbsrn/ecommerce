@@ -1,0 +1,33 @@
+package com.ecommerce.siparis_service.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name="siparis", schema="siparis_schema")
+@Builder
+public class Siparis {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long siparisId;
+
+    private Date olusturmaTarihi;
+
+    private Double toplamFiyat;
+
+    @Enumerated(EnumType.STRING) // Enum değerini string olarak saklar
+    private SiparisDurumu siparisDurumu;
+    private Long kullaniciId;
+
+    @OneToMany(mappedBy = "siparis")
+    private List<SiparisKalemleri> siparisKalemleri;
+
+    @OneToOne(mappedBy = "siparis")
+    private OdemeBilgileri odemeBilgileri;
+}
