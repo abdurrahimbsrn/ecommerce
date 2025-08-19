@@ -58,11 +58,21 @@ public class KullaniciService {
 
     public ResponseEntity<KullaniciDto> updateKullanici(Long id, KullaniciEkleDto kullaniciEkleDto) {
         Optional<Kullanici> kullaniciOptional=kullaniciRepository.findById(id);
-        kullaniciOptional.map(kullanici -> {
+        return kullaniciOptional.map(kullanici -> {
             kullanici.setAd(kullaniciEkleDto.getAd());
             kullanici.setSoyad(kullaniciEkleDto.getSoyad());
             kullanici.setTelefon(kullaniciEkleDto.getTelefon());
 
-        })
+            return ResponseEntity.ok(createDto(kullanici));
+
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    public ResponseEntity<Void> deleteKullanici(Long id) {
+        if(kullaniciRepository.findById(id).isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        kullaniciRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }
