@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="733f57fe-5af3-4f6d-b755-0c38a34aaceb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/services/siparis_service/src/main/java/com/ecommerce/siparis_service/controller/SiparisController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/siparis_service/src/main/java/com/ecommerce/siparis_service/controller/OdemeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/kullanici_service/src/main/java/com/ecommerce/kullanici_service/controller/AdresController.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/kullanici_service/src/main/java/com/ecommerce/kullanici_service/controller/AdresController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,9 +17,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "abdurrahimbsrn"
+  }
 }]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/abdurrahimbsrn/ecommerce.git",
+    "accountId": "dc8c2eba-4bc6-4e45-b821-cdd0a9526d0f"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="31Rr5bOGKqdtpjum3XlCw1rhj5Z" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -31,7 +44,10 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/abdurrahim/Masaüstü/ecommerce-poc"
+    "last_opened_file_path": "/home/abdurrahim/Masaüstü/ecommerce-poc",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
   <component name="TaskManager">

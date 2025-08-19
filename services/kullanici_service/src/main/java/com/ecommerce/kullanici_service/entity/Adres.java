@@ -18,7 +18,7 @@ public class Adres {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adresId;
 
-    private String adresAdı;
+    private String adresAdi;
     private String ulke;
     private String sehir;
     private String ilce;
