@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/eticaret_db?currentSchema=siparis_schema
+    url: jdbc:postgresql://localhost:5432/eticaret_db?currentSchema=kullanici_schema
     username: eticaret
     password: eticaret
   jpa:
@@ -10,7 +10,7 @@ spring:
       hibernate:
         dialect:
     application:
-      name: siparis_service
+      name: kullanici_service
 server:
-  port: 8082
+  port: 8084
 

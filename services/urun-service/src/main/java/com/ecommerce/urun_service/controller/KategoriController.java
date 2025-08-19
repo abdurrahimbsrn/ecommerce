@@ -1,25 +1,25 @@
 package com.ecommerce.urun_service.controller;
 
+import com.ecommerce.urun_service.dto.KategoriDto;
+import com.ecommerce.urun_service.dto.KategoriWithUrunDto;
 import com.ecommerce.urun_service.entity.Kategori;
 import com.ecommerce.urun_service.service.KategoriService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/kategory")
-@NoArgsConstructor
-@AllArgsConstructor
+@RequestMapping("/kategori")
+@RequiredArgsConstructor
 public class KategoriController {
 
-    KategoriService kategoriService;
+    private final KategoriService kategoriService;
 
     @GetMapping("/")
-    public List<Kategori> getAllKategori(){
+    public List<KategoriWithUrunDto> getAllKategori(){
         return kategoriService.getAllKategori();
     }
     @GetMapping("/{id}")
@@ -27,15 +27,15 @@ public class KategoriController {
         return kategoriService.getKategori(id);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Kategori> updateKategori(@PathVariable Long id, @RequestBody String kategoriName){
-        return kategoriService.updateKategori(id,kategoriName);
+    public ResponseEntity<Kategori> updateKategori(@PathVariable Long id, @RequestBody KategoriDto kategori){
+        return kategoriService.updateKategori(id, kategori);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteKategori(@PathVariable Long id){
         return kategoriService.deleteKategori(id);
     }
     @PostMapping("/")
-    public ResponseEntity<Kategori> addKategori(@RequestBody String kategoriAd){
-        return kategoriService.addKategori(kategoriAd);
+    public ResponseEntity<Kategori> addKategori(@RequestBody KategoriDto kategoriDto){
+        return kategoriService.addKategori(kategoriDto);
     }
 }

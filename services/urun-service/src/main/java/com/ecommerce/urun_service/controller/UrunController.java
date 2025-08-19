@@ -15,11 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/urun")
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UrunController  {
 
-    private UrunService urunService;
+    private final UrunService urunService;
 
     @GetMapping("/")
     public List<UrunDto> getAllUrun(){

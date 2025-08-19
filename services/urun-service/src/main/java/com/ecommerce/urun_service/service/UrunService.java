@@ -10,6 +10,7 @@ import com.ecommerce.urun_service.repository.StokRepository;
 import com.ecommerce.urun_service.repository.UrunRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +19,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
+
 @Service
 public class UrunService {
 
-    private UrunRepository urunRepository;
-    private KategoriRepository kategoriRepository;
-    private StokRepository stokRepository;
+    private final UrunRepository urunRepository;
+    private final KategoriRepository kategoriRepository;
+    private final StokRepository stokRepository;
 
     private UrunDto createUrunDto(Urun urun) {
         UrunDto urunDto = new UrunDto();
@@ -90,6 +91,7 @@ public class UrunService {
             stok.setMevcutStok(urunDto.getStok());
 
             urun.setStok(stok);
+            stok.setUrun(urun);
             urunRepository.save(urun);
 
             return ResponseEntity.ok(createUrunDto(urun));
@@ -133,6 +135,6 @@ public class UrunService {
             return ResponseEntity.notFound().build();
         }
         urunRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }
