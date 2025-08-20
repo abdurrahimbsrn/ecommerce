@@ -24,7 +24,7 @@ public class Adres {
     private String ilce;
     private String detay;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "kullanici_id")
     private Kullanici kullanici;
 }

@@ -21,6 +21,6 @@ public class Kullanici {
     @Column(nullable = false, unique = true)
     private String keycloakUserId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private Adres adres;
 }
