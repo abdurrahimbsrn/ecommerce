@@ -11,10 +11,5 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   application:
     name: kullanici_service
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/realms/ecommerce
 server:
-  port: 8084
+  port: 8082
