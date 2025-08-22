@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -16,8 +15,9 @@ import java.util.List;
 public class KullaniciController {
     private final KullaniciService kullaniciService;
 
+
     @GetMapping
-    //@PreAuthorize("hashRole('admin')")
+    @PreAuthorize("hasRole('admin')")
     public List<KullaniciDto> getAllKullanici(){
         return kullaniciService.getAllKullanici();
     }
