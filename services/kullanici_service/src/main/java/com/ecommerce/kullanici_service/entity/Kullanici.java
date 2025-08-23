@@ -13,13 +13,12 @@ public class Kullanici {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long kullaniciId;
-
     private String ad;
     private String soyad;
-    private String telefon;
+    private String email;
 
-    @Column(nullable = false, unique = true)
-    private String keycloakUserId;
+    @Column(unique = true)
+    private String keycloakId;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Adres adres;

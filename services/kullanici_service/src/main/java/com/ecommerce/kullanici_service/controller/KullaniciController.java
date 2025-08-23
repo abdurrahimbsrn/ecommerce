@@ -6,6 +6,8 @@ import com.ecommerce.kullanici_service.service.KullaniciService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -16,14 +18,15 @@ public class KullaniciController {
     private final KullaniciService kullaniciService;
 
 
-    @GetMapping
+    @GetMapping("/all")
     @PreAuthorize("hasRole('admin')")
     public List<KullaniciDto> getAllKullanici(){
         return kullaniciService.getAllKullanici();
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<KullaniciDto> getAllKullaniciById(@PathVariable Long id){
-        return kullaniciService.getKullaniciById(id);
+    @GetMapping
+    @PreAuthorize("hasRole('user')")
+    public ResponseEntity<KullaniciDto> getAllKullaniciByToke(@AuthenticationPrincipal Jwt jwt){
+        return kullaniciService.getKullaniciById(jwt);
     }
     @PostMapping
     public ResponseEntity<KullaniciDto> addKullanici(@RequestBody KullaniciEkleDto kullaniciEkleDto){
