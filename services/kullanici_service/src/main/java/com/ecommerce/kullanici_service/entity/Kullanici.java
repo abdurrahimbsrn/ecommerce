@@ -17,6 +17,8 @@ public class Kullanici {
     private String soyad;
     private String email;
 
+    private String telefon;
+
     @Column(unique = true)
     private String keycloakId;
 

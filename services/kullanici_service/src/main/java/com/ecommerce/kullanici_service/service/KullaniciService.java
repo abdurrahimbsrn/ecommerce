@@ -23,7 +23,7 @@ public class KullaniciService {
         KullaniciDto kullaniciDto = new KullaniciDto();
         kullaniciDto.setAd(kullanici.getAd());
         kullaniciDto.setSoyad(kullanici.getSoyad());
-        kullaniciDto.setTelefon(kullanici.getEmail());
+        kullaniciDto.setTelefon(kullanici.getTelefon());
         kullaniciDto.setId(kullanici.getKullaniciId());
         return kullaniciDto;
     }
@@ -60,14 +60,14 @@ public class KullaniciService {
         kullanici.setAd(kullaniciEkleDto.getAd());
         kullanici.setEmail(kullaniciEkleDto.getTelefon());
         kullanici.setSoyad(kullaniciEkleDto.getSoyad());
-        kullanici.setKeycloakId(kullaniciEkleDto.getKeycloakUserId());
+
 
         kullaniciRepository.save(kullanici);
         return ResponseEntity.ok(createDto(kullanici));
     }
 
-    public ResponseEntity<KullaniciDto> updateKullanici(Long id, KullaniciEkleDto kullaniciEkleDto) {
-        Optional<Kullanici> kullaniciOptional = kullaniciRepository.findById(id);
+    public ResponseEntity<KullaniciDto> updateKullanici(String id, KullaniciEkleDto kullaniciEkleDto) {
+        Optional<Kullanici> kullaniciOptional = kullaniciRepository.findByKeycloakId(id);
         return kullaniciOptional.map(kullanici -> {
             kullanici.setAd(kullaniciEkleDto.getAd());
             kullanici.setSoyad(kullaniciEkleDto.getSoyad());

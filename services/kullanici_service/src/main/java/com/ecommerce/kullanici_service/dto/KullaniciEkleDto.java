@@ -13,5 +13,4 @@ public class KullaniciEkleDto {
     private String ad;
     private String soyad;
     private String telefon;
-    private String keycloakUserId;
 }

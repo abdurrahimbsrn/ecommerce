@@ -1,6 +1,7 @@
 package com.ecommerce.urun_service.controller;
 
 import com.ecommerce.urun_service.dto.KategoriDto;
+import com.ecommerce.urun_service.dto.KategoriEkleDto;
 import com.ecommerce.urun_service.dto.KategoriWithUrunDto;
 import com.ecommerce.urun_service.entity.Kategori;
 import com.ecommerce.urun_service.service.KategoriService;
@@ -18,13 +19,14 @@ public class KategoriController {
 
     private final KategoriService kategoriService;
 
-    @GetMapping("/")
-    public List<KategoriWithUrunDto> getAllKategori(){
+    @GetMapping("/all")
+    public List<Kategori> getAllKategori(){
         return kategoriService.getAllKategori();
     }
     @GetMapping("/{id}")
     public ResponseEntity<Kategori> getKategori(@PathVariable Long id){
-        return kategoriService.getKategori(id);
+        return null;
+                //kategoriService.getKategori(id);
     }
     @PutMapping("/{id}")
     public ResponseEntity<Kategori> updateKategori(@PathVariable Long id, @RequestBody KategoriDto kategori){
@@ -34,8 +36,8 @@ public class KategoriController {
     public ResponseEntity<Void> deleteKategori(@PathVariable Long id){
         return kategoriService.deleteKategori(id);
     }
-    @PostMapping("/")
-    public ResponseEntity<Kategori> addKategori(@RequestBody KategoriDto kategoriDto){
+    @PostMapping
+    public ResponseEntity<Kategori> addKategori(@RequestBody KategoriEkleDto kategoriDto){
         return kategoriService.addKategori(kategoriDto);
     }
 }

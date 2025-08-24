@@ -1,6 +1,7 @@
 package com.ecommerce.urun_service.service;
 
 import com.ecommerce.urun_service.dto.KategoriDto;
+import com.ecommerce.urun_service.dto.KategoriEkleDto;
 import com.ecommerce.urun_service.dto.KategoriWithUrunDto;
 import com.ecommerce.urun_service.dto.UrunDto;
 import com.ecommerce.urun_service.entity.Kategori;
@@ -18,21 +19,23 @@ public class KategoriService {
     private final KategoriRepository kategoriRepository;
 
     public List<Kategori> getAllKategori() {
+
         return kategoriRepository.findAll();
+
     }
 
-    public ResponseEntity<KategoriWithUrunDto> getKategori(Long id) {
-        Optional<Kategori> kategoriOptional = kategoriRepository.findById(id);
-        return kategoriOptional.map(kategori -> {
-            KategoriWithUrunDto kategoriDto=new KategoriWithUrunDto();
-            kategoriDto.setKategoriAd(kategori.getKategoriAd());
-
-            UrunDto
-            kategoriDto.setUrunDto();
-
-            return ResponseEntity.ok(kategori);
-        }).orElse(ResponseEntity.notFound().build());
-    }
+//    public ResponseEntity<KategoriWithUrunDto> getKategori(Long id) {
+//        Optional<Kategori> kategoriOptional = kategoriRepository.findById(id);
+//        return kategoriOptional.map(kategori -> {
+//            KategoriWithUrunDto kategoriDto=new KategoriWithUrunDto();
+//            kategoriDto.setKategoriAd(kategori.getKategoriAd());
+//
+//            UrunDto
+//            kategoriDto.setUrunDto();
+//
+//            return ResponseEntity.ok(kategori);
+//        }).orElse(ResponseEntity.notFound().build());
+//    }
 
     public ResponseEntity<Kategori> updateKategori(Long id, KategoriDto kategoriDto) {
         Optional<Kategori> kategoriOptional = kategoriRepository.findById(id);
@@ -51,9 +54,11 @@ public class KategoriService {
         return ResponseEntity.noContent().build();
     }
 
-    public ResponseEntity<Kategori> addKategori(KategoriDto kategoriDto) {
+    public ResponseEntity<Kategori> addKategori(KategoriEkleDto kategoriEkleDto) {
         Kategori kategori=new Kategori();
-        kategori.setKategoriAd(kategoriDto.getKategoriAd());
+        kategori.setKategoriAd(kategoriEkleDto.getKategoriAd());
+        kategori.setAciklama(kategoriEkleDto.getAciklama());
+        kategori.setEmoji(kategoriEkleDto.getEmoji());
         kategoriRepository.save(kategori);
         return ResponseEntity.ok(kategori);
     }

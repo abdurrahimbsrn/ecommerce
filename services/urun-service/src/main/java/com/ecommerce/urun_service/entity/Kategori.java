@@ -16,6 +16,8 @@ public class Kategori {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long kategoriId;
     private String kategoriAd;
+    private String aciklama;
+    private String emoji;
 
     @OneToMany(mappedBy = "kategori")
     private List<Urun> urunler;

@@ -14,4 +14,5 @@ public class KullaniciDto {
     private String ad;
     private String soyad;
     private String telefon;
+    private String eposta;
 }

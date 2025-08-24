@@ -28,12 +28,12 @@ public class KullaniciController {
     public ResponseEntity<KullaniciDto> getAllKullaniciByToke(@AuthenticationPrincipal Jwt jwt){
         return kullaniciService.getKullaniciById(jwt);
     }
-    @PostMapping
-    public ResponseEntity<KullaniciDto> addKullanici(@RequestBody KullaniciEkleDto kullaniciEkleDto){
-        return kullaniciService.addKullanici(kullaniciEkleDto);
-    }
-    @PutMapping("/{id}")
-    public ResponseEntity<KullaniciDto> updateKullanici(@PathVariable Long id, @RequestBody KullaniciEkleDto kullaniciEkleDto){
+//    @PostMapping
+//    public ResponseEntity<KullaniciDto> addKullanici(@RequestBody KullaniciEkleDto kullaniciEkleDto){
+//        return kullaniciService.addKullanici(kullaniciEkleDto);
+//    }
+    @PutMapping("/{keycloakId}")
+    public ResponseEntity<KullaniciDto> updateKullanici(@PathVariable String id, @RequestBody KullaniciEkleDto kullaniciEkleDto){
         return kullaniciService.updateKullanici(id, kullaniciEkleDto);
     }
     @DeleteMapping("/{id}")
