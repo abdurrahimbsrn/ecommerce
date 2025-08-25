@@ -7,4 +7,5 @@ public class KategoriDto {
     private Long id;
     private String kategoriAd;
     private String aciklama;
+    private String emoji;
 }

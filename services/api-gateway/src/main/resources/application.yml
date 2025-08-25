@@ -16,6 +16,12 @@ spring:
             - Path=/urun/**
           filters:
             - TokenRelay=
+        - id: urun-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/kategori/**
+          filters:
+              - TokenRelay=
         - id: siparis-service
           uri: http://localhost:8083
           predicates:

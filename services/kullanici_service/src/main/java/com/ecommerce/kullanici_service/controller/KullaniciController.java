@@ -17,12 +17,12 @@ import java.util.List;
 public class KullaniciController {
     private final KullaniciService kullaniciService;
 
-
     @GetMapping("/all")
     @PreAuthorize("hasRole('admin')")
     public List<KullaniciDto> getAllKullanici(){
         return kullaniciService.getAllKullanici();
     }
+
     @GetMapping
     @PreAuthorize("hasRole('user')")
     public ResponseEntity<KullaniciDto> getAllKullaniciByToke(@AuthenticationPrincipal Jwt jwt){

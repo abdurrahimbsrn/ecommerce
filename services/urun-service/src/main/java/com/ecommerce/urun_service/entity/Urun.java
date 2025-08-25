@@ -3,7 +3,6 @@ package com.ecommerce.urun_service.entity;
 import lombok.*;
 import jakarta.persistence.*;
 
-import java.util.Date;
 
 @Entity
 @Table(name="urunler", schema="urun_schema")
@@ -25,6 +24,6 @@ public class Urun {
     @JoinColumn(name = "kategoriId")
     private Kategori kategori;
 
-    @OneToOne(mappedBy = "urun", cascade=CascadeType.ALL)
-    private Stok stok;
+    @NonNull
+    private Integer mevcutStok;
 }

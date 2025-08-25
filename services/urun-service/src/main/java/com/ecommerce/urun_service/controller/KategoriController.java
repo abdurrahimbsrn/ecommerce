@@ -8,6 +8,7 @@ import com.ecommerce.urun_service.service.KategoriService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,25 +19,31 @@ import java.util.List;
 public class KategoriController {
 
     private final KategoriService kategoriService;
-
+    @PreAuthorize("hasRole('admin')")
     @GetMapping("/all")
-    public List<Kategori> getAllKategori(){
+    public List<KategoriDto> getAllKategori(){
         return kategoriService.getAllKategori();
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Kategori> getKategori(@PathVariable Long id){
-        return null;
-                //kategoriService.getKategori(id);
+    public ResponseEntity<KategoriWithUrunDto> getKategori(@PathVariable Long id){
+        return kategoriService.getKategori(id);
     }
+
+    @PreAuthorize("hasRole('admin')")
     @PutMapping("/{id}")
-    public ResponseEntity<Kategori> updateKategori(@PathVariable Long id, @RequestBody KategoriDto kategori){
+    public ResponseEntity<KategoriDto> updateKategori(@PathVariable Long id, @RequestBody KategoriEkleDto kategori){
         return kategoriService.updateKategori(id, kategori);
     }
+
+    @PreAuthorize("hasRole('admin')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteKategori(@PathVariable Long id){
         return kategoriService.deleteKategori(id);
     }
-    @PostMapping
+
+    @PreAuthorize("hasRole('admin')")
+    @PostMapping("/add")
     public ResponseEntity<Kategori> addKategori(@RequestBody KategoriEkleDto kategoriDto){
         return kategoriService.addKategori(kategoriDto);
     }

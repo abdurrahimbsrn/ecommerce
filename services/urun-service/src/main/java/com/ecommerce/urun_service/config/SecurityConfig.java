@@ -1,4 +1,4 @@
-package com.ecommerce.kullanici_service.config;
+package com.ecommerce.urun_service.config;
 
 
 import org.springframework.context.annotation.Bean;

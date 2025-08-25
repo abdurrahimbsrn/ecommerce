@@ -9,5 +9,5 @@ private String urunAd;
 private Double fiyat;
 private Integer stok;
 private String aciklama;
-private String kategori;
+//private String kategori;
 }

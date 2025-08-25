@@ -12,10 +12,8 @@ import lombok.*;
 public class Stok {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
     private Long stokId;
 
-    @NonNull
     private Integer mevcutStok;
 
     @OneToOne

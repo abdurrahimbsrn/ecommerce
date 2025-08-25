@@ -7,49 +7,58 @@ import com.ecommerce.urun_service.entity.Stok;
 
 import com.ecommerce.urun_service.service.UrunService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/urun")
 @RequiredArgsConstructor
-public class UrunController  {
+public class UrunController {
 
     private final UrunService urunService;
 
-    @GetMapping("/")
-    public List<UrunDto> getAllUrun(){
+    @GetMapping("/all")
+    public List<UrunDto> getAllUrun() {
         return urunService.getAllUruns();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UrunDto> getUrunById(@PathVariable Long id){  // PathVariable yol ile gelen değişkenleri metotla eşleştirir.
-                                                                        // ResponseEntity Http yanıtlarını kontrol etmemizi sağlayan sınıf. Sadece veriyi değil cevabın kodunuda döner
+    public ResponseEntity<UrunDto> getUrunById(@PathVariable Long id) {  // PathVariable yol ile gelen değişkenleri metotla eşleştirir.
+        // ResponseEntity Http yanıtlarını kontrol etmemizi sağlayan sınıf. Sadece veriyi değil cevabın kodunuda döner
         return urunService.getUrunById(id);
     }
-    @PutMapping("/{id}/stok")
-    public ResponseEntity<UrunDto> updateStok(@PathVariable Long id, @RequestBody Integer stok){
-        return urunService.setUrunStok(id,stok);
-    }
-    @GetMapping("/kategori/{kategoriId}")
-    public List<UrunDto> getUrunByKategoriId(@PathVariable Long kategorId){
-        return urunService.getUrunByKategori(kategorId);
+
+    @GetMapping("/kategori/{id}")
+    public List<UrunDto> getUrunByKategoriId(@PathVariable Long id) {
+        return urunService.getUrunByKategori(id);
     }
 
-
-    @PostMapping("/")
-    public ResponseEntity<UrunDto> addUrun(@RequestBody UrunEkleDto urunEkleDto){
-        return urunService.addUrun(urunEkleDto);
+    @PreAuthorize("hasRole('admin')")
+    @PostMapping
+    public ResponseEntity<UrunDto> addUrun(@RequestBody UrunEkleDto urunEkleDto) {
+        UrunDto dto = urunService.addUrun(urunEkleDto);
+        if (dto != null) {
+            return ResponseEntity.ok(urunService.addUrun(urunEkleDto));
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
     }
+
+    @PreAuthorize("hasRole('admin')")
     @PutMapping("/{id}")
-    public ResponseEntity<UrunDto> updateStok(@PathVariable Long id, @RequestBody UrunEkleDto urunEkleDto){
-        return urunService.updateUrun(id,urunEkleDto);
+    public ResponseEntity<UrunDto> updateUrun(@PathVariable Long id, @RequestBody UrunEkleDto urunEkleDto) {
+        return urunService.updateUrun(id, urunEkleDto);
     }
+
+    @PreAuthorize("hasRole('admin')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUrun(@PathVariable Long id){
+    public ResponseEntity<Void> deleteUrun(@PathVariable Long id) {
         return urunService.deleteUrun(id);
     }
 

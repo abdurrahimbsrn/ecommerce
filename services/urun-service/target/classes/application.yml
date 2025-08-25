@@ -1,4 +1,9 @@
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/ecommerce
   datasource:
     url: jdbc:postgresql://localhost:5432/eticaret_db?currentSchema=urun_schema
     username: eticaret
