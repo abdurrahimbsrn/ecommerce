@@ -3,21 +3,16 @@ package com.ecommerce.urun_service.service;
 import com.ecommerce.urun_service.dto.UrunDto;
 import com.ecommerce.urun_service.dto.UrunEkleDto;
 import com.ecommerce.urun_service.entity.Kategori;
-import com.ecommerce.urun_service.entity.Stok;
 import com.ecommerce.urun_service.entity.Urun;
 import com.ecommerce.urun_service.mapper.UrunMapper;
 import com.ecommerce.urun_service.repository.KategoriRepository;
-import com.ecommerce.urun_service.repository.StokRepository;
 import com.ecommerce.urun_service.repository.UrunRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -91,5 +86,15 @@ public class UrunService {
         }
         urunRepository.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<Boolean> updateUrunStok(Long id, Integer stok) {
+        Optional<Urun> urunOptional=urunRepository.findById(id);
+
+        return urunOptional.map(urun -> {
+            urun.setMevcutStok(urun.getMevcutStok()- stok);
+            urunRepository.save(urun);
+            return ResponseEntity.ok(true);
+        }).orElse(ResponseEntity.notFound().build());
     }
 }

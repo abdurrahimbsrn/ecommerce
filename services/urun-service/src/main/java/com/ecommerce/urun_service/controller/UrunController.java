@@ -2,7 +2,6 @@ package com.ecommerce.urun_service.controller;
 
 import com.ecommerce.urun_service.dto.UrunDto;
 import com.ecommerce.urun_service.dto.UrunEkleDto;
-import com.ecommerce.urun_service.entity.Stok;
 
 
 import com.ecommerce.urun_service.service.UrunService;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/urun")
@@ -62,4 +60,9 @@ public class UrunController {
         return urunService.deleteUrun(id);
     }
 
+    @PreAuthorize("hasRole('admin')")
+    @PutMapping("stokDusur/{id}")
+    public ResponseEntity<Boolean> stokDusur(@PathVariable Long id, @RequestBody Integer stok){
+        return urunService.updateUrunStok(id, stok);
+    }
 }
