@@ -20,7 +20,7 @@ public class SiparisKalemleri {
     private Double urunFiyat;
     private Long urunId;
     private Integer miktar;
-    @ManyToOne
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "siparisId")
     private Siparis siparis;
 }

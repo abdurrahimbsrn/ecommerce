@@ -25,7 +25,7 @@ public class Siparis {
     private SiparisDurumu siparisDurumu;
     private Long kullaniciId;
 
-    @OneToMany(mappedBy = "siparis")
+    @OneToOne(mappedBy = "siparis")
     private List<SiparisKalemleri> siparisKalemleri;
 
     @OneToOne(mappedBy = "siparis")
