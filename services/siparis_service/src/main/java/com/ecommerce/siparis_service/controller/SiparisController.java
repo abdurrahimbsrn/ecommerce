@@ -17,8 +17,8 @@ public class SiparisController {
 
     private final SiparisService siparisService;
     @PostMapping
-    public ResponseEntity<SiparisEkleDto> newSiparis(@RequestBody SiparisEkleDto siparisEkleDto){
-        return siparisService.newSiparis(siparisEkleDto);
+    public ResponseEntity<SiparisDto> newSiparis(@RequestBody SiparisEkleDto siparisEkleDto){
+        return ResponseEntity.ok(siparisService.newSiparis(siparisEkleDto));
     }
     @GetMapping("/{id}")
     public ResponseEntity<SiparisDto> getSiparisById(@PathVariable Long id){

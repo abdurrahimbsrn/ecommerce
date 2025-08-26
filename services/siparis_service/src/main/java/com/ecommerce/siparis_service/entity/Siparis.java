@@ -3,7 +3,7 @@ package com.ecommerce.siparis_service.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -17,7 +17,7 @@ public class Siparis {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long siparisId;
 
-    private Date olusturmaTarihi;
+    private LocalDateTime olusturmaTarihi;
 
     private Double toplamFiyat;
 
