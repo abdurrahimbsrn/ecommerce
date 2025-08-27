@@ -42,7 +42,7 @@ public class KategoriController {
         return kategoriService.deleteKategori(id);
     }
 
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasRole('ROLE_admin')")
     @PostMapping("/add")
     public ResponseEntity<Kategori> addKategori(@RequestBody KategoriEkleDto kategoriDto){
         return kategoriService.addKategori(kategoriDto);

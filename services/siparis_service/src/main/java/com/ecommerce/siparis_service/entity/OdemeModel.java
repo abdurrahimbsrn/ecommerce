@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OdemeBilgileri {
+public class OdemeModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long odemeId;
 
     @OneToOne
     @JoinColumn(name = "siparisId")
-    private Siparis siparis;
+    private SiparisModel siparisModel;
 
     @Enumerated(EnumType.STRING)
     private OdemeDurumu odemeDurumu;

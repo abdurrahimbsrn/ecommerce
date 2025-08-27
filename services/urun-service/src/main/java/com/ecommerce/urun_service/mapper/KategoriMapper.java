@@ -11,7 +11,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 
 public interface KategoriMapper {
-
+    @Mapping(source = "id", target = "id")
     KategoriDto toKategoriDto(Kategori kategori);
 
     @Mapping(source = "kategoriAd", target = "kategoriAd")

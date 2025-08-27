@@ -14,7 +14,7 @@ import java.util.List;
 public class Kategori {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long kategoriId;
+    private Long id;
     private String kategoriAd;
     private String aciklama;
     private String emoji;

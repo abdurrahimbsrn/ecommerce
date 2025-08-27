@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-08-25T19:38:40+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.8 (Ubuntu)"
+    date = "2025-08-27T10:33:34+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21 (Oracle Corporation)"
 )
 @Component
 public class UrunMapperImpl implements UrunMapper {
@@ -22,7 +22,10 @@ public class UrunMapperImpl implements UrunMapper {
 
         UrunDto urunDto = new UrunDto();
 
+        urunDto.setId( urun.getId() );
+        urunDto.setAd( urun.getAd() );
         urunDto.setFiyat( urun.getFiyat() );
+        urunDto.setMevcutStok( urun.getMevcutStok() );
         urunDto.setAciklama( urun.getAciklama() );
 
         return urunDto;
@@ -36,10 +39,13 @@ public class UrunMapperImpl implements UrunMapper {
 
         Urun.UrunBuilder urun = Urun.builder();
 
+        urun.id( urunDto.getId() );
+        urun.ad( urunDto.getAd() );
         urun.aciklama( urunDto.getAciklama() );
         if ( urunDto.getFiyat() != null ) {
             urun.fiyat( urunDto.getFiyat() );
         }
+        urun.mevcutStok( urunDto.getMevcutStok() );
 
         return urun.build();
     }
@@ -52,10 +58,12 @@ public class UrunMapperImpl implements UrunMapper {
 
         Urun.UrunBuilder urun = Urun.builder();
 
+        urun.ad( urunEkleDto.getAd() );
         urun.aciklama( urunEkleDto.getAciklama() );
         if ( urunEkleDto.getFiyat() != null ) {
             urun.fiyat( urunEkleDto.getFiyat() );
         }
+        urun.mevcutStok( urunEkleDto.getMevcutStok() );
 
         return urun.build();
     }
@@ -66,9 +74,11 @@ public class UrunMapperImpl implements UrunMapper {
             return;
         }
 
+        urun.setAd( dto.getAd() );
         urun.setAciklama( dto.getAciklama() );
         if ( dto.getFiyat() != null ) {
             urun.setFiyat( dto.getFiyat() );
         }
+        urun.setMevcutStok( dto.getMevcutStok() );
     }
 }

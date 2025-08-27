@@ -16,7 +16,8 @@ import java.io.IOException;
 public class KeycloakTokenProvider implements ClientHttpRequestInterceptor {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String keycloakTokenUrl = "http://localhost:8080/realms/ecommerce/protocol/custom-client/token";
+    private final String keycloakTokenUrl ="http://localhost:8080/realms/ecommerce/protocol/openid-connect/token";
+
 
     // Token ve bitiş süresini önbelleğe alacak değişkenler
     private String cachedAccessToken;
@@ -37,8 +38,8 @@ public class KeycloakTokenProvider implements ClientHttpRequestInterceptor {
     private String fetchNewToken() {
         MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
         requestBody.add("grant_type", "client_credentials");
-        requestBody.add("client_id", "siparis-service-client");
-        requestBody.add("client_secret", "your-client-secret");
+        requestBody.add("client_id", "backend-client");
+        requestBody.add("client_secret", "89c6TquUdZu45p9P9j2nSWkwGHX7IBA3");
 
         try {
             ResponseEntity<TokenResponse> tokenResponse = restTemplate.postForEntity(

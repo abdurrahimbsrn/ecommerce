@@ -11,6 +11,7 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UrunMapper {
+
     UrunDto toUrunDto(Urun urun);
     Urun toUrun(UrunDto urunDto);
 

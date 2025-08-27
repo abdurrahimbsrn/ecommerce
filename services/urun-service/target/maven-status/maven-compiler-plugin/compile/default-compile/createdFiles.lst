@@ -1,5 +1,5 @@
-com/ecommerce/urun_service/service/KategoriService.class
 com/ecommerce/urun_service/config/SecurityConfig.class
+com/ecommerce/urun_service/service/KategoriService.class
 com/ecommerce/urun_service/mapper/KategoriMapperImpl.class
 com/ecommerce/urun_service/dto/UrunEkleDto.class
 com/ecommerce/urun_service/dto/KategoriWithUrunDto.class

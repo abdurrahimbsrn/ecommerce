@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class UrunDto {
-    private String urunAd;
+    private Long id;
+    private String ad;
     private Double fiyat;
-    private Integer stok;
+    private Integer mevcutStok;
     private String aciklama;
-    private Long kategori;
 }

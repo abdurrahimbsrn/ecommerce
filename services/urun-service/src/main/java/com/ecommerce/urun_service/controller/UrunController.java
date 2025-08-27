@@ -4,7 +4,9 @@ import com.ecommerce.urun_service.dto.UrunDto;
 import com.ecommerce.urun_service.dto.UrunEkleDto;
 
 
+import com.ecommerce.urun_service.entity.Urun;
 import com.ecommerce.urun_service.service.UrunService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -37,17 +39,11 @@ public class UrunController {
     }
 
     @PreAuthorize("hasRole('admin')")
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<UrunDto> addUrun(@RequestBody UrunEkleDto urunEkleDto) {
-        UrunDto dto = urunService.addUrun(urunEkleDto);
-        if (dto != null) {
-            return ResponseEntity.ok(urunService.addUrun(urunEkleDto));
-        }
-        else{
-            return ResponseEntity.notFound().build();
-        }
+        UrunDto newUrun = urunService.addUrun(urunEkleDto);
+        return new ResponseEntity<>(newUrun, HttpStatus.CREATED);
     }
-
     @PreAuthorize("hasRole('admin')")
     @PutMapping("/{id}")
     public ResponseEntity<UrunDto> updateUrun(@PathVariable Long id, @RequestBody UrunEkleDto urunEkleDto) {

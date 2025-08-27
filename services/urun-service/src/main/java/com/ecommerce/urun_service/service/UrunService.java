@@ -7,6 +7,7 @@ import com.ecommerce.urun_service.entity.Urun;
 import com.ecommerce.urun_service.mapper.UrunMapper;
 import com.ecommerce.urun_service.repository.KategoriRepository;
 import com.ecommerce.urun_service.repository.UrunRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-
+@Transactional
 @Service
 public class UrunService {
 
@@ -42,6 +43,7 @@ public class UrunService {
         return urunDtoList;
     }
 
+
     public List<UrunDto> getUrunByKategori(Long kategorId) {
         List<Urun> urunList = urunRepository.findByKategoriId(kategorId);
         List<UrunDto> urunDtoList = new ArrayList<>();
@@ -52,19 +54,15 @@ public class UrunService {
     }
 
     public UrunDto addUrun(UrunEkleDto urunEkleDto) {
-        // Kategori ID'sinden Kategori objesini bul.
-        Kategori kategori = kategoriRepository.findById(urunEkleDto.getKategori())
-                .orElseThrow(() -> new IllegalArgumentException("Kategori bulunamadı. ID: " + urunEkleDto.getKategori()));
+        Kategori kategori = kategoriRepository.findById(urunEkleDto.getKategoriId())
+                .orElseThrow(() -> new IllegalArgumentException("Kategori bulunamadı. ID: " + urunEkleDto.getKategoriId()));
 
-        // Mapper'ı kullanarak DTO'dan entity'ye temel dönüşümü yap.
         Urun urun = urunMapper.toUrun(urunEkleDto);
-
-        // Kategori objesini manuel olarak Urun entity'sine ata.
         urun.setKategori(kategori);
 
-        // Urun entity'sini kaydet ve DTO'ya dönüştürerek dön.
         Urun savedUrun = urunRepository.save(urun);
         return urunMapper.toUrunDto(savedUrun);
+
     }
 
     public ResponseEntity<UrunDto> updateUrun(Long id, UrunEkleDto urunDto) {

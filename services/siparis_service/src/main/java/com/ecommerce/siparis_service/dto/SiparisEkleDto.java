@@ -10,6 +10,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SiparisEkleDto {
-    private Long kullaniciId;
     private List<SiparisKalemEkleDto> siparisKalemleri;
 }

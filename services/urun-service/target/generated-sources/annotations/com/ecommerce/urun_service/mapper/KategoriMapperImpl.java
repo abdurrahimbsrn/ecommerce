@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-08-25T19:38:40+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.8 (Ubuntu)"
+    date = "2025-08-27T10:33:34+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21 (Oracle Corporation)"
 )
 @Component
 public class KategoriMapperImpl implements KategoriMapper {
@@ -27,6 +27,7 @@ public class KategoriMapperImpl implements KategoriMapper {
 
         KategoriDto kategoriDto = new KategoriDto();
 
+        kategoriDto.setId( kategori.getId() );
         kategoriDto.setKategoriAd( kategori.getKategoriAd() );
         kategoriDto.setAciklama( kategori.getAciklama() );
         kategoriDto.setEmoji( kategori.getEmoji() );
@@ -81,7 +82,10 @@ public class KategoriMapperImpl implements KategoriMapper {
 
         UrunDto urunDto = new UrunDto();
 
+        urunDto.setId( urun.getId() );
+        urunDto.setAd( urun.getAd() );
         urunDto.setFiyat( urun.getFiyat() );
+        urunDto.setMevcutStok( urun.getMevcutStok() );
         urunDto.setAciklama( urun.getAciklama() );
 
         return urunDto;

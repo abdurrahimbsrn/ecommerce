@@ -28,6 +28,12 @@ spring:
             - Path=/siparis/**
           filters:
             - TokenRelay=
+        - id: siparis-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/odeme/**
+          filters:
+            - TokenRelay=
         - id: kullanici-service
           uri: http://localhost:8082
           predicates:

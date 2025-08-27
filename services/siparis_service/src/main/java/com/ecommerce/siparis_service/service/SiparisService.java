@@ -4,22 +4,20 @@ import com.ecommerce.siparis_service.dto.SiparisDto;
 import com.ecommerce.siparis_service.dto.SiparisEkleDto;
 import com.ecommerce.siparis_service.dto.SiparisKalemEkleDto;
 import com.ecommerce.siparis_service.dto.UrunDto;
-import com.ecommerce.siparis_service.entity.Siparis;
-import com.ecommerce.siparis_service.entity.SiparisDurumu;
-import com.ecommerce.siparis_service.entity.SiparisKalemleri;
+import com.ecommerce.siparis_service.entity.*;
 import com.ecommerce.siparis_service.mapper.SiparisMapper;
 import com.ecommerce.siparis_service.repository.SiparisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import com.ecommerce.siparis_service.client.UrunServiceClient;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +26,9 @@ public class SiparisService {
     private final UrunServiceClient urunServiceClient;
     private final SiparisMapper siparisMapper;
 
-    public SiparisDto newSiparis(SiparisEkleDto siparisEkleDto) {
+    public SiparisDto newSiparis(Authentication authentication, SiparisEkleDto siparisEkleDto) {
+
+        String uId=authentication.getName();
 
         List<SiparisKalemleri> siparisKalemleriList = new ArrayList<>();
         Double toplamFiyat = 0.0;
@@ -40,52 +40,67 @@ public class SiparisService {
             if(urunDto==null){
                 throw new RuntimeException("Urun çekilemedi! : "+kalemDto.getUrunId());
             }
-            if (urunDto.getStok() < kalemDto.getMiktar()) {
-                throw new RuntimeException("Yetersiz stok: " + urunDto.getUrunAd());
+            if (urunDto.getMevcutStok()< kalemDto.getMiktar()) {
+                throw new RuntimeException("Yetersiz stok: " + urunDto.getAd());
             }
 
             SiparisKalemleri siparisKalemi = new SiparisKalemleri();
             siparisKalemi.setMiktar(kalemDto.getMiktar());
             siparisKalemi.setUrunId(kalemDto.getUrunId());
-            siparisKalemi.setUrunAd(urunDto.getUrunAd());
+            siparisKalemi.setUrunAd(urunDto.getAd());
             siparisKalemi.setUrunFiyat(urunDto.getFiyat());
 
             toplamFiyat += kalemDto.getMiktar() * urunDto.getFiyat();
             siparisKalemleriList.add(siparisKalemi);
         }
 
-        Siparis siparis = new Siparis();
-        siparis.setKullaniciId(siparisEkleDto.getKullaniciId());
-        siparis.setOlusturmaTarihi(LocalDateTime.now());
-        siparis.setToplamFiyat(toplamFiyat);
-        siparis.setSiparisDurumu(SiparisDurumu.BEKLEMEDE);
+        SiparisModel siparisModel = new SiparisModel();
+        siparisModel.setKullaniciId(uId);
+        siparisModel.setOlusturmaTarihi(LocalDateTime.now());
+        siparisModel.setToplamFiyat(toplamFiyat);
+        siparisModel.setSiparisDurumu(SiparisDurumu.BEKLEMEDE);
 
 
         for (SiparisKalemleri kalem : siparisKalemleriList) {
-            kalem.setSiparis(siparis);
+            kalem.setSiparisModel(siparisModel);
         }
-        siparis.setSiparisKalemleri(siparisKalemleriList);
+        siparisModel.setSiparisKalemleri(siparisKalemleriList);
 
-        Siparis kaydedilenSiparis = siparisRepository.save(siparis);
 
+
+        OdemeModel odemeModel =new OdemeModel();
+        odemeModel.setOdemeDurumu(OdemeDurumu.BEKLEMEDE);
+        odemeModel.setOdemeYontemi(OdemeYontemi.BELIRTILMEDI);
+        siparisModel.setOdemeModel(odemeModel);
+        odemeModel.setSiparisModel(siparisModel);
+
+
+        SiparisModel kaydedilenSiparisModel = siparisRepository.save(siparisModel);
+
+        // TODO ödeme tamamlandıktan sonra stok düşülsün.
         for (SiparisKalemleri kalem : siparisKalemleriList) {
             urunServiceClient.stokDusur(kalem.getUrunId(), kalem.getMiktar());
         }
 
         // Kaydedilen sipariş entity'sini yanıt DTO'suna çevir ve geri dön
-        return siparisMapper.toSiparisDto(kaydedilenSiparis);
+        return siparisMapper.toDto(kaydedilenSiparisModel);
     }
 
-    public ResponseEntity<SiparisDto> getSiparisById(Long id) {
-        return null;
+    public SiparisDto getSiparisById(Long id) {
+        Optional<SiparisModel> siparisModelOptional = siparisRepository.findById(id);
+        return siparisModelOptional.map(siparisMapper::toDto).orElse(null);
     }
 
-    public ResponseEntity<SiparisDto> getSiparisByKullaniciId(Long id) {
-        return null;
+    public List<SiparisDto> getSiparisByKullaniciId(Authentication authentication) {
+
+        String uId=authentication.getName();
+        List<SiparisModel> siparisModelList = siparisRepository.findByKullaniciId(uId);
+        return siparisModelList.stream().map(siparisMapper::toDto).collect(Collectors.toList());
     }
 
     public List<SiparisDto> getAllSiparis() {
-        return null;
+        List<SiparisModel> siparisModelList = siparisRepository.findAll();
+        return siparisModelList.stream().map(siparisMapper::toDto).collect(Collectors.toList());
     }
 
     public ResponseEntity<SiparisDto> cancelSiparis(Long id) {

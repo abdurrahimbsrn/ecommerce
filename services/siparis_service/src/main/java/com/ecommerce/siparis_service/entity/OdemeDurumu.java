@@ -1,6 +1,6 @@
 package com.ecommerce.siparis_service.entity;
 
-enum OdemeDurumu {
+public enum OdemeDurumu {
     BEKLEMEDE,
     BASARILI,
     REDDEDILDI

@@ -17,5 +17,5 @@ spring:
     application:
       name: siparis_service
 server:
-  port: 8082
+  port: 8083
 

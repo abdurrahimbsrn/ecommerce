@@ -3,12 +3,11 @@ package com.ecommerce.siparis_service.mapper;
 
 
 import com.ecommerce.siparis_service.dto.SiparisDto;
-import com.ecommerce.siparis_service.entity.Siparis;
+import com.ecommerce.siparis_service.entity.SiparisModel;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = OdemeMapper.class)
+
 public interface SiparisMapper {
-    SiparisDto toSiparisDto(Siparis siparis);
+    SiparisDto toDto(SiparisModel siparisModel);
 }

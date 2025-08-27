@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name="siparis", schema="siparis_schema")
 @Builder
-public class Siparis {
+public class SiparisModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long siparisId;
@@ -23,11 +23,11 @@ public class Siparis {
 
     @Enumerated(EnumType.STRING) // Enum değerini string olarak saklar
     private SiparisDurumu siparisDurumu;
-    private Long kullaniciId;
+    private String kullaniciId;
 
-    @OneToOne(mappedBy = "siparis")
+    @OneToMany(mappedBy = "siparisModel", cascade = CascadeType.ALL)
     private List<SiparisKalemleri> siparisKalemleri;
 
-    @OneToOne(mappedBy = "siparis")
-    private OdemeBilgileri odemeBilgileri;
+    @OneToOne(mappedBy = "siparisModel", cascade = CascadeType.ALL)
+    private OdemeModel odemeModel;
 }

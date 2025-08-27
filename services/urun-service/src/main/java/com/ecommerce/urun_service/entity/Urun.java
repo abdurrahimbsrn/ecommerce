@@ -15,8 +15,11 @@ public class Urun {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     private  String ad;
+    @NonNull
     private String aciklama;
+    @NonNull
     private double fiyat;
     //private Date eklemeTarihi;
 
