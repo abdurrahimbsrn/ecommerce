@@ -19,7 +19,6 @@ import java.util.List;
 public class KategoriController {
 
     private final KategoriService kategoriService;
-    @PreAuthorize("hasRole('admin')")
     @GetMapping("/all")
     public List<KategoriDto> getAllKategori(){
         return kategoriService.getAllKategori();

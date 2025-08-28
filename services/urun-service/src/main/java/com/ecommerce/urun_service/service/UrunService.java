@@ -2,6 +2,7 @@ package com.ecommerce.urun_service.service;
 
 import com.ecommerce.urun_service.dto.UrunDto;
 import com.ecommerce.urun_service.dto.UrunEkleDto;
+import com.ecommerce.urun_service.dto.UrunWithKategoriDto;
 import com.ecommerce.urun_service.entity.Kategori;
 import com.ecommerce.urun_service.entity.Urun;
 import com.ecommerce.urun_service.mapper.UrunMapper;
@@ -26,19 +27,29 @@ public class UrunService {
     private final UrunMapper urunMapper;
 
 
-    public ResponseEntity<UrunDto> getUrunById(Long id) {
+    public UrunWithKategoriDto getUrunById(Long id) {
         Optional<Urun> urunOptional = urunRepository.findById(id);
 
+
+
         return urunOptional.map(urun -> {
-            return ResponseEntity.ok(urunMapper.toUrunDto(urun));
-        }).orElse(ResponseEntity.notFound().build());
+
+            UrunWithKategoriDto dto=urunMapper.toUrunWithKategoriDto(urun);
+            dto.setKategoriAd(urun.getKategori().getKategoriAd());
+
+            return dto;
+        }).orElse(null);
     }
 
-    public List<UrunDto> getAllUruns() {
+    public List<UrunWithKategoriDto> getAllUruns() {
         List<Urun> urunList = urunRepository.findAll();
-        List<UrunDto> urunDtoList = new ArrayList<>();
+        List<UrunWithKategoriDto> urunDtoList = new ArrayList<>();
+
         for (Urun urun : urunList) {
-            urunDtoList.add(urunMapper.toUrunDto(urun));
+            var dto=urunMapper.toUrunWithKategoriDto(urun);
+            dto.setKategoriAd(urun.getKategori().getKategoriAd());
+
+            urunDtoList.add(dto);
         }
         return urunDtoList;
     }

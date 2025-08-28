@@ -2,14 +2,15 @@ package com.ecommerce.urun_service.mapper;
 
 import com.ecommerce.urun_service.dto.UrunDto;
 import com.ecommerce.urun_service.dto.UrunEkleDto;
+import com.ecommerce.urun_service.dto.UrunWithKategoriDto;
 import com.ecommerce.urun_service.entity.Urun;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-08-27T19:00:55+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.8 (Ubuntu)"
+    date = "2025-08-28T12:35:12+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21 (Oracle Corporation)"
 )
 @Component
 public class UrunMapperImpl implements UrunMapper {
@@ -80,5 +81,22 @@ public class UrunMapperImpl implements UrunMapper {
             urun.setFiyat( dto.getFiyat() );
         }
         urun.setMevcutStok( dto.getMevcutStok() );
+    }
+
+    @Override
+    public UrunWithKategoriDto toUrunWithKategoriDto(Urun urun) {
+        if ( urun == null ) {
+            return null;
+        }
+
+        UrunWithKategoriDto urunWithKategoriDto = new UrunWithKategoriDto();
+
+        urunWithKategoriDto.setId( urun.getId() );
+        urunWithKategoriDto.setAd( urun.getAd() );
+        urunWithKategoriDto.setFiyat( urun.getFiyat() );
+        urunWithKategoriDto.setMevcutStok( urun.getMevcutStok() );
+        urunWithKategoriDto.setAciklama( urun.getAciklama() );
+
+        return urunWithKategoriDto;
     }
 }

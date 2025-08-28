@@ -3,6 +3,7 @@ package com.ecommerce.urun_service.mapper;
 import com.ecommerce.urun_service.dto.KategoriEkleDto;
 import com.ecommerce.urun_service.dto.UrunDto;
 import com.ecommerce.urun_service.dto.UrunEkleDto;
+import com.ecommerce.urun_service.dto.UrunWithKategoriDto;
 import com.ecommerce.urun_service.entity.Kategori;
 import com.ecommerce.urun_service.entity.Urun;
 import org.mapstruct.Mapper;
@@ -21,6 +22,9 @@ public interface UrunMapper {
     //Urun toEntity(UrunEkleDto urunEkleDto);
     @Mapping(target = "kategori", ignore = true)
     void updateUrunFromDto(UrunEkleDto dto, @MappingTarget Urun urun);
+
+    @Mapping(target="kategoriAd", ignore = true)
+    UrunWithKategoriDto toUrunWithKategoriDto(Urun urun);
 
     //Urun urunEkleDtoToUrun(UrunEkleDto urunEkleDto);
 }

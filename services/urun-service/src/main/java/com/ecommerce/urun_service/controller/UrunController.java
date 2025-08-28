@@ -4,8 +4,11 @@ import com.ecommerce.urun_service.dto.UrunDto;
 import com.ecommerce.urun_service.dto.UrunEkleDto;
 
 
+import com.ecommerce.urun_service.dto.UrunWithKategoriDto;
 import com.ecommerce.urun_service.entity.Urun;
 import com.ecommerce.urun_service.service.UrunService;
+import jakarta.annotation.Nullable;
+import org.hibernate.dialect.unique.CreateTableUniqueDelegate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,14 +26,19 @@ public class UrunController {
     private final UrunService urunService;
 
     @GetMapping("/all")
-    public List<UrunDto> getAllUrun() {
+    public List<UrunWithKategoriDto> getAllUrun() {
         return urunService.getAllUruns();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UrunDto> getUrunById(@PathVariable Long id) {  // PathVariable yol ile gelen değişkenleri metotla eşleştirir.
+    public ResponseEntity<UrunWithKategoriDto> getUrunById(@PathVariable Long id) {  // PathVariable yol ile gelen değişkenleri metotla eşleştirir.
         // ResponseEntity Http yanıtlarını kontrol etmemizi sağlayan sınıf. Sadece veriyi değil cevabın kodunuda döner
-        return urunService.getUrunById(id);
+        //return urunService.getUrunById(id);
+        var dto = urunService.getUrunById(id);
+        if (dto != null) {
+            return ResponseEntity.ok(dto);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/kategori/{id}")
@@ -44,6 +52,7 @@ public class UrunController {
         UrunDto newUrun = urunService.addUrun(urunEkleDto);
         return new ResponseEntity<>(newUrun, HttpStatus.CREATED);
     }
+
     @PreAuthorize("hasRole('admin')")
     @PutMapping("/{id}")
     public ResponseEntity<UrunDto> updateUrun(@PathVariable Long id, @RequestBody UrunEkleDto urunEkleDto) {
@@ -58,7 +67,7 @@ public class UrunController {
 
     @PreAuthorize("hasRole('admin')")
     @PutMapping("stokDusur/{id}")
-    public ResponseEntity<Boolean> stokDusur(@PathVariable Long id, @RequestBody Integer stok){
+    public ResponseEntity<Boolean> stokDusur(@PathVariable Long id, @RequestBody Integer stok) {
         return urunService.updateUrunStok(id, stok);
     }
 }
