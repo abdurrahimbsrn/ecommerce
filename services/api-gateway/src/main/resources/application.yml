@@ -40,6 +40,12 @@ spring:
             - Path=/kullanici/**
           filters:
             - TokenRelay=
+        - id: kullanici-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/adres/**
+          filters:
+            - TokenRelay=
 
   security:
     oauth2:

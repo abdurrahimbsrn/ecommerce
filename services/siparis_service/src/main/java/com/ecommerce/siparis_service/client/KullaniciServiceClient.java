@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class KullaniciServiceClient {
 
     private final RestTemplate restTemplate;
-    private final String urunServiceBaseUrl = "http://localhost:8082/urun";
+    private final String urunServiceBaseUrl = "http://localhost:8082/kullanici";
 
     @Autowired
     public KullaniciServiceClient(KeycloakTokenProvider keycloakTokenProvider) {

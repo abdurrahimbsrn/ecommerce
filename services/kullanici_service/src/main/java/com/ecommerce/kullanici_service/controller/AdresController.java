@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/kullanici/adres")
+@RequestMapping("/adres")
 public class AdresController {
     private final AdresService adresService;
 
@@ -33,9 +33,14 @@ public class AdresController {
         return adresService.deleteAdres(id);
     }
     @GetMapping("/kullanici/{id}")
-    public List<AdresDto> getAdresByKullaniciId(@PathVariable Long id){
-        return adresService.getAdresByKullaniciId(id);
+    public ResponseEntity<Adres> getAdresByKeycloakId(@PathVariable String id){
+        var adres=adresService.getAdresByKeycloakId(id);
+        if(adres!=null){
+            return ResponseEntity.ok(adres);
+        }
+        return ResponseEntity.notFound().build();
     }
+
 
 
 }

@@ -30,4 +30,5 @@ public class SiparisModel {
 
     @OneToOne(mappedBy = "siparisModel", cascade = CascadeType.ALL)
     private OdemeModel odemeModel;
+
 }
